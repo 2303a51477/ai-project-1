@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Food Delivery Order Management System</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <div>
+                <p class="eyebrow">Food Delivery Dashboard</p>
+                <h1>Online Food Delivery Order Management System</h1>
+                <p class="subtitle">Using Queue, Stack, and Dictionary Data Structures</p>
+            </div>
+            <button id="resetBtn" class="btn btn-secondary">Reset All Orders</button>
+        </header>
+
+        <section class="summary-cards">
+            <article class="card summary-card">
+                <div class="icon-circle icon-pending">⌛</div>
+                <div>
+                    <span>Total Pending Orders</span>
+                    <strong id="pendingCount">0</strong>
+                </div>
+            </article>
+            <article class="card summary-card">
+                <div class="icon-circle icon-prepared">🍽️</div>
+                <div>
+                    <span>Total Prepared Orders</span>
+                    <strong id="preparedCount">0</strong>
+                </div>
+            </article>
+            <article class="card summary-card">
+                <div class="icon-circle icon-delivered">🚚</div>
+                <div>
+                    <span>Total Delivered Orders</span>
+                    <strong id="deliveredCount">0</strong>
+                </div>
+            </article>
+        </section>
+
+        <main class="dashboard-grid">
+            <section class="card form-card">
+                <div class="card-heading">
+                    <div>
+                        <h2>Add New Order</h2>
+                        <p>Submit customer orders into the pending queue.</p>
+                    </div>
+                    <span class="badge">Queue FIFO</span>
+                </div>
+
+                <form id="orderForm" class="order-form">
+                    <div class="form-row">
+                        <label for="orderId">Order ID</label>
+                        <input type="text" id="orderId" placeholder="e.g. OFD-101" required />
+                    </div>
+
+                    <div class="form-row">
+                        <label for="customerName">Customer Name</label>
+                        <input type="text" id="customerName" placeholder="Jane Doe" required />
+                    </div>
+
+                    <div class="form-row">
+                        <label for="foodItem">Food Item</label>
+                        <input type="text" id="foodItem" placeholder="Cheese Pizza" required />
+                    </div>
+
+                    <div class="form-row">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" min="1" value="1" required />
+                    </div>
+
+                    <div class="form-row">
+                        <label for="billingAmount">Order Total (₹)</label>
+                        <input type="number" id="billingAmount" min="0.01" step="0.01" placeholder="e.g. 250.00"
+                            required />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add Order</button>
+                </form>
+            </section>
+
+            <section class="card control-card">
+                <div class="card-heading">
+                    <div>
+                        <h2>Order Workflow</h2>
+                        <p>Process orders through preparation and delivery.</p>
+                    </div>
+                    <span class="badge">Stack LIFO</span>
+                </div>
+
+                <div class="control-actions">
+                    <button id="prepareBtn" class="btn btn-primary">Prepare Next Order</button>
+                    <button id="deliverBtn" class="btn btn-tertiary">Deliver Order</button>
+                </div>
+
+                <div class="status-panels">
+                    <div class="status-pill status-pending">Pending</div>
+                    <div class="status-pill status-prepared">Prepared</div>
+                    <div class="status-pill status-delivered">Delivered</div>
+                </div>
+            </section>
+
+            <section class="card list-card">
+                <div class="card-heading">
+                    <h2>Pending Orders Queue</h2>
+                    <p>Orders waiting in FIFO order.</p>
+                </div>
+                <div id="pendingList" class="item-list empty-state">No pending orders yet.</div>
+            </section>
+
+            <section class="card list-card">
+                <div class="card-heading">
+                    <h2>Ready for Delivery Stack</h2>
+                    <p>Prepared orders shown in LIFO order.</p>
+                </div>
+                <div id="preparedList" class="item-list empty-state">No orders ready for delivery.</div>
+            </section>
+
+            <section class="card list-card delivered-card">
+                <div class="card-heading">
+                    <h2>Delivered Orders</h2>
+                    <p>Track successfully delivered requests.</p>
+                </div>
+                <div id="deliveredList" class="item-list empty-state">No delivered orders yet.</div>
+            </section>
+
+            <section class="card search-card">
+                <div class="card-heading">
+                    <h2>Search Order Status</h2>
+                    <p>Enter an Order ID to view current status.</p>
+                </div>
+                <div class="search-action">
+                    <input type="text" id="searchInput" placeholder="Enter Order ID" />
+                    <button id="searchBtn" class="btn btn-primary">Search Order</button>
+                </div>
+                <div id="searchResult" class="search-result empty-state">Search for an order to see its status.</div>
+            </section>
+        </main>
+
+        <div id="toast" class="toast hidden"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

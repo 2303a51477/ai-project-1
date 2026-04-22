@@ -1,0 +1,8 @@
+mysql -u root -p
+
+
+USE quantumpix;
+
+select * from users;
+
+select * from bookings;

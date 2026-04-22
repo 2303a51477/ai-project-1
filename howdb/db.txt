@@ -1,0 +1,70 @@
+PS C:\Users\DANDU RAHUL\OneDrive\Desktop\Documents\Desktop\quan1> mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.44 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE IF NOT EXISTS quantumpix;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> USE quantumpix;
+Database changed
+mysql> CREATE TABLE IF NOT EXISTS users (
+    ->     id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     name VARCHAR(100) NOT NULL,
+    ->     email VARCHAR(100) UNIQUE NOT NULL,
+    ->     password VARCHAR(255) NOT NULL,
+    ->     role ENUM('normal', 'premium') DEFAULT 'normal',
+    ->     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS photographers (
+    ->     id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     name VARCHAR(100) NOT NULL,
+    ->     specialty VARCHAR(100),
+    ->     experience INT,
+    ->     price_per_day DECIMAL(10,2),
+    ->     rating DECIMAL(3,2),
+    ->     image_url VARCHAR(255),
+    ->     available BOOLEAN DEFAULT TRUE
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS bookings (
+    ->     id INT PRIMARY KEY AUTO_INCREMENT,
+    ->     user_id INT,
+    ->     photographer_id INT,
+    ->     event_type VARCHAR(50),
+    ->     camera_type VARCHAR(50),
+    ->     days INT,
+    ->     total_price DECIMAL(10,2),
+    ->     booking_date DATE,
+    ->     status VARCHAR(20) DEFAULT 'confirmed',
+    ->     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ->     FOREIGN KEY (user_id) REFERENCES users(id),
+    ->     FOREIGN KEY (photographer_id) REFERENCES photographers(id)
+    -> );
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO photographers (name, specialty, experience, price_per_day, rating, available) VALUES
+    -> ('John Anderson', 'Wedding', 8, 5000.00, 4.8, TRUE),
+    -> ('Sarah Williams', 'Portrait', 5, 3500.00, 4.6, TRUE),
+    -> ('Michael Chen', 'Wedding', 10, 6000.00, 4.9, TRUE),
+    -> ('Emily Rodriguez', 'Fashion', 6, 4500.00, 4.7, TRUE),
+    -> ('David Kumar', 'Wedding', 7, 5500.00, 4.8, TRUE),
+    -> ('Lisa Wang', 'Corporate', 4, 3000.00, 4.5, TRUE),
+    -> ('Robert Taylor', 'Birthday', 6, 4000.00, 4.7, TRUE),
+    -> ('Maria Garcia', 'Tourism', 5, 3800.00, 4.6, TRUE);
+Query OK, 8 rows affected (0.03 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> 
